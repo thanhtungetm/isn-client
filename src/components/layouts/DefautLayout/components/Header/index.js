@@ -1,27 +1,16 @@
-import {
-    faBell,
-    faCirclePlus,
-    faComment,
-    faCompass,
-    faHeart,
-    faHouse,
-    faSearch,
-    faUser,
-    faUserGroup,
-} from '@fortawesome/free-solid-svg-icons'
+import { faCirclePlus, faComment, faHouse } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import cls from 'classnames'
 import { useDispatch, useSelector } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 
 import { open } from '../../../../../app/slices/modalSlice'
-import { logout } from '../../../../../app/slices/authSlice'
 
 import logo from '../../../../../assets/logo.jpg'
+import AccountNav from '../AccountNav'
 import FriendshipNav from '../FriendshipNav'
 import Notification from '../Notification'
 import Search from '../Search'
-import AccountNav from '../AccountNav'
 
 function Header() {
     const create = useSelector((state) => state.modal.create)
@@ -32,8 +21,6 @@ function Header() {
         e.preventDefault()
         dispatch(open())
     }
-
-    
 
     return (
         <header className="inset-0  h-16 fixed z-10 border bg-white border-b-gray-300">
@@ -79,7 +66,7 @@ function Header() {
                                     return cls({ 'text-blue-500': isActive })
                                 }}
                             > */}
-                                <FontAwesomeIcon icon={faComment} />
+                            <FontAwesomeIcon icon={faComment} />
                             {/* </NavLink> */}
                         </li>
                         <li onClick={openCreate}>

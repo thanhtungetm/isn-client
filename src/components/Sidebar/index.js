@@ -84,7 +84,7 @@ function Sidebar() {
                     </ul>
                 </div>
                 <div className="text-center mt-2 ">
-                    <span className="text-sm text-slate-400">© 2022 ISN FROM 3T</span>
+                    <span className="text-sm text-slate-400">© 2022 ISN</span>
                 </div>
             </div>
         </div>

@@ -1,19 +1,17 @@
 import { faUser } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import cls from 'classnames'
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 import { logout } from '../../../../../app/slices/authSlice'
-import cls from 'classnames'
 
 function AccountNav({ user }) {
-    const socket = useSelector((state) => state.socket)
     const [open, setOpen] = useState(false)
 
     const dispatch = useDispatch()
     const handleLogout = () => {
         dispatch(logout())
-        // if (socket.current && socket.current.connected) socket.current.emit('disconnect')
     }
 
     return (

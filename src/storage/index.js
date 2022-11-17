@@ -52,6 +52,11 @@ export const uploadImageFirebase = async (list) => {
 
     return fileNameList
 }
+export const removeImageFirebase = async (list) => {
+    for (let image of list) {
+        await removeAvatar(image.image_url)
+    }
+}
 
 export const getImageUrl = async (filename) => {
     try {

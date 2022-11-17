@@ -1,18 +1,15 @@
 import { faSmile } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { current } from '@reduxjs/toolkit'
-import cls from 'classnames'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
-import CommentInput from '../../../components/CommentInput/index'
 import FriendService from '../../../services/FriendService'
 import HashtagService from '../../../services/HashtagService'
+import AvatarImage from '../../../components/AvatarImage'
 
 const icons = ['😀', '😂', '😅', '😆', '😈', '😍', '😎', '😛', '😨']
 const HOST = process.env.REACT_APP_IMAGE_HOST
 
 function AddCaption({ captionRef, control }) {
-
     const user = useSelector((state) => state.auth.user)
 
     const [getHashTag, setGetHashTag] = useState(false)
@@ -23,10 +20,6 @@ function AddCaption({ captionRef, control }) {
     const [startPos, setStartPos] = useState(0)
     const [searchMention, setSearchMention] = useState('')
     const [mentionList, setMentionList] = useState([])
-
-    // const [addedMetionList, setAddedMentionList] = useState([])
-    // const [addedHashtagList, setAddedHashtagList] = useState([])
-    // const [captionPreview, setCaptionPreview] = useState('')
 
     function typeInTextarea(newText, el = document.activeElement) {
         const [start, end] = [el.selectionStart, el.selectionEnd]
@@ -150,49 +143,13 @@ function AddCaption({ captionRef, control }) {
         })
     }
 
-    // const test = () => {
-    //     console.log('Mentions', addedMetionList)
-    //     console.log('Hashtag', addedHashtagList)
-    //     const caption = captionRef.current.value
-    //     let newCaption = caption
-
-    //     const mentions = []
-    //     const hashtags = []
-
-    //     addedMetionList.forEach((mention) => {
-    //         if (caption.indexOf(mention) !== -1) {
-    //             newCaption = newCaption.replace(
-    //                 '@' + mention,
-    //                 `<span class="font-medium text-blue-500">@${mention}</span>`
-    //             )
-    //             mentions.push(mention)
-    //         }
-    //     })
-    //     addedHashtagList.forEach((hashtag) => {
-    //         if (caption.indexOf(hashtag) !== -1) {
-    //             newCaption = newCaption.replace(
-    //                 '#' + hashtag,
-    //                 `<span class="font-medium">#${hashtag}</span>`
-    //             )
-    //             hashtags.push(hashtag)
-    //         }
-    //     })
-    //     console.log('Caption', newCaption)
-    //     console.log('Mention final', mentions)
-    //     console.log('Hashtag final', hashtags)
-    //     setCaptionPreview(newCaption)
-    // }
-
     return (
         <>
             <div className="flex p-3 font-medium">
                 <div className="flex items-center">
                     <div className="w-10 h-10">
-                        <img
-                            src={`${HOST}/static/avatar/${user.avatar}`}
-                            alt=""
-                            className="rounded-full w-full h-full object-cover"
-                        />
+                        <AvatarImage filename={user.avatar} />
+                        
                     </div>
                     <div className="flex flex-col justify-center px-2">
                         <span className="font-bold leading-none text-md text-left">
@@ -215,9 +172,15 @@ function AddCaption({ captionRef, control }) {
                     autoFocus={true}
                     type="text"
                 />
-                <div className='text-xs text-gray-500'>
-                    <span className='block'>Gắn thẻ<b> @</b>{"<"}tên người dùng{">"}</span>
-                    <span >Thêm hashtag <b>#</b>{"<"}tên hashtag{">"}</span>
+                <div className="text-xs text-gray-500">
+                    <span className="block">
+                        Gắn thẻ<b> @</b>
+                        {'<'}tên người dùng{'>'}
+                    </span>
+                    <span>
+                        Thêm hashtag <b>#</b>
+                        {'<'}tên hashtag{'>'}
+                    </span>
                 </div>
                 {/* Lookup mentions */}
                 {mentionList.length !== 0 && (
@@ -230,11 +193,7 @@ function AddCaption({ captionRef, control }) {
                                     onClick={() => handleAddMention(user)}
                                 >
                                     <div className="w-6 h-6">
-                                        <img
-                                            className="w-full h-full object-cover rounded-full"
-                                            src={`${HOST}/static/avatar/${user.user_avatar}`}
-                                            alt="avt"
-                                        />
+                                        <AvatarImage filename={user.user_avatar} />
                                     </div>
                                     <span>@{user.user_name}</span>
                                 </li>

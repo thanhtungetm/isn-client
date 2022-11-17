@@ -1,9 +1,9 @@
 import { faTimes, faUserGroup } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { NavLink, useLocation, useNavigate } from 'react-router-dom'
 import cls from 'classnames'
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
+import { useLocation, useNavigate } from 'react-router-dom'
 import FriendService from '../../../../../services/FriendService'
 
 function FriendshipNav() {

@@ -1,25 +1,20 @@
 import { faBell, faTimes } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { useEffect, useRef, useState } from 'react'
-import NotificationService from '../../../../../services/NotificationService'
 import cls from 'classnames'
-import { NavLink } from 'react-router-dom'
-import MentionNotify from './MentionNotify'
-import LikeNotify from './LikeNotify'
-import style from './Notification.module.css'
+import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
+import NotificationService from '../../../../../services/NotificationService'
+import LikeNotify from './LikeNotify'
+import MentionNotify from './MentionNotify'
+import style from './Notification.module.css'
 
 const MENTION = 0
 const LIKE = 1
-
 const MENTION_NOTIFY = 2
 const COMMENT_NOTIFY = 3
-const HOST = process.env.REACT_APP_IMAGE_HOST
 
 function Notification() {
     const [notificationList, setNotificationList] = useState([])
-
-    const soundRef = useRef(null)
 
     const [status, setStatus] = useState({ open: false, newNotification: false })
     const [likeNotify, setLikeNotify] = useState({ show: false, username: '' })
@@ -60,7 +55,6 @@ function Notification() {
             })
             if (payload.number === -1) return
 
-            soundRef.current.play()
             setStatus((preStatus) => ({ ...preStatus, newNotification: true }))
 
             setLikeNotify({ show: true, username: payload.from })
@@ -74,7 +68,6 @@ function Notification() {
             })
             setStatus((preStatus) => ({ ...preStatus, newNotification: true }))
 
-            soundRef.current.play()
             if (payload.type === COMMENT_NOTIFY) {
                 setCommentNotify({ show: true, username: payload.from })
                 setTimeout(() => setCommentNotify({ show: false, username: '' }), 2500)
@@ -110,7 +103,6 @@ function Notification() {
             <span className="peer cursor-pointer">
                 <FontAwesomeIcon icon={faBell} onClick={handleOpen} />
             </span>
-            <audio ref={soundRef} src={`${HOST}/static/sound/chuong.mp3`} hidden />
 
             <div className="fixed bottom-0 mr-5 mb-2 right-0 text-xl text-blue-800 z-50">
                 {likeNotify.show && (

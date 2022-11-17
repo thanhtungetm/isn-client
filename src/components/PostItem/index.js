@@ -22,13 +22,9 @@ import Comment from '../../pages/Comment'
 import PostActionList from './PostActionList'
 import { NavLink } from 'react-router-dom'
 import AvatarImage from '../AvatarImage'
+import DeleteModal from './DeleteModal'
 
-// const imageList = [j1, j2, j3]
-// console.log(imageList)
-
-// const getImage = (url)=>
-const HOST = process.env.REACT_APP_IMAGE_HOST
-function PostItem({ postData, openView, gotoId }) {
+function PostItem({ postData, openView, gotoId, onRemoved }) {
     const user = useSelector((state) => state.auth.user)
     const socket = useSelector((state) => state.socket)
 
@@ -42,6 +38,7 @@ function PostItem({ postData, openView, gotoId }) {
     }, [postData])
 
     const [openComment, setOpenComment] = useState(false)
+    const [openDeleteModal, setOpenDeleteModal] = useState(false)
 
     const handleOpenComment = (post) => {
         setOpenComment(true)
@@ -81,6 +78,13 @@ function PostItem({ postData, openView, gotoId }) {
         if(gotoId)
             setOpenComment(true)
     },[gotoId])
+
+    const handleRemove = ()=>{
+        setOpenDeleteModal(true)
+    }
+    const handleOnRemoved = ()=>{
+        onRemoved()
+    }
 
     return (
         <div className="mb-3 bg-white">
@@ -135,6 +139,7 @@ function PostItem({ postData, openView, gotoId }) {
                                 <FontAwesomeIcon
                                     className="cursor-pointer text-red-500 text-xl"
                                     icon={faTrash}
+                                    onClick={handleRemove}
                                 />
                             )}
                         </div>
@@ -166,6 +171,8 @@ function PostItem({ postData, openView, gotoId }) {
                     <CommentInput postId={postId} username={post.user_name}/>
                 </div>
             </div>
+
+            {openDeleteModal && <DeleteModal postId={postId} images={imageList} onRemoved={handleOnRemoved} onClose={()=>setOpenDeleteModal(false)} />}
 
             {openComment && (
                 <Comment
