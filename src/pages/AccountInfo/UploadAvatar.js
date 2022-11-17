@@ -16,17 +16,7 @@ function UploadAvatar({ fileRef, username, avatar }) {
         <div className="flex justify-between mt-5 w-full">
             <div className="w-[40%] flex justify-end">
                 <div className="w-16 h-16">
-                    <AvatarImage imageRef={imgRef} filename={avatar} />
-                    {/* <img
-                        ref={imgRef}
-                        className="rounded-full h-full w-full object-cover"
-                        src={
-                            avatar
-                                ? `${HOST}/static/avatar/${avatar}`
-                                : 'https://via.placeholder.com/150'
-                        }
-                        alt=""
-                    /> */}
+                    <AvatarImage imageRef={imgRef} filename={avatar ? avatar: 'avatar/avatar.png'} />
                 </div>
             </div>
             <div className="flex flex-col justify-center w-[55%]  ml-2">
